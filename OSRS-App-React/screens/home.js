@@ -7,7 +7,7 @@ export default class Home extends React.Component {
 static navigationOptions = {
     title: 'OSRS Tracker',
     headerStyle: {
-        backgroundColor: '#f4511e',
+        backgroundColor: '#302106',
     },
     headerTintColor: '#fff',
     headerTitleStyle: {

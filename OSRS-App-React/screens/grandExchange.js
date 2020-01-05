@@ -49,7 +49,7 @@ export default class GrandExchange extends React.Component {
     }
 
     handleMoreData = () => {
-        if(!this.state.isMoreDataLoading) {
+        if(!this.state.isMoreDataLoading && this.state.dataSource.length > 11) {
             this.setState({
                 isMoreDataLoading: true,
                 pageNum: this.state.pageNum + 1
@@ -61,7 +61,7 @@ export default class GrandExchange extends React.Component {
     }
 
     fetchData () {
-        return fetch('http://192.168.2.11:3002/items/' + this.state.itemName + '/' + this.state.pageNum)
+        return fetch('http://192.168.2.11:3002/items/' + this.state.itemName.toLowerCase() + '/' + this.state.pageNum)
             .then( (response) => response.json() )
             .then ( (responseJson) => {
                 if(responseJson.status != "failure") {
@@ -119,7 +119,7 @@ export default class GrandExchange extends React.Component {
         <View style={styles.container}>
         
             <View style={styles.TextInputView}>
-                <TextInput placeholder="Enter item here" style={styles.TextInput} selectionColor={"#428AF8"} underlineColorAndroid={"#428AF8"}
+                <TextInput placeholder="Enter item here" style={styles.TextInput} selectionColor={"#302106"} underlineColorAndroid={"#302106"}
                 value={this.state.itemName}
                 onChangeText={(itemName) => this.setState({itemName})}
                 />
