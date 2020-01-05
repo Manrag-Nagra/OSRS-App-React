@@ -21,7 +21,9 @@ pressHandler = () => {
 
 render () {
     return (
+        //Background image
         <ImageBackground source={require('../assets/osrs3.jpg')} resizeMode='cover' style={styles.container}>
+        {/* Grand exchange button */}
         <TouchableOpacity style={styles.button} onPress={this.pressHandler}>
             <View style={styles.buttonContainer}>
                 <Text style={styles.buttonText}>Grand Exchange</Text>
