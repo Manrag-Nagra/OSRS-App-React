@@ -2,21 +2,34 @@ import React from 'react';
 import { StyleSheet, Text, View, ImageBackground, Button, TouchableOpacity } from 'react-native';
 
 
-export default function Home({ navigation }) {
+export default class Home extends React.Component {
+    
+static navigationOptions = {
+    title: 'OSRS Tracker',
+    headerStyle: {
+        backgroundColor: '#f4511e',
+    },
+    headerTintColor: '#fff',
+    headerTitleStyle: {
+        fontWeight: 'bold',
+    },
+};  
 
-const pressHandler = () => {
-    navigation.navigate('GrandExchange');
+pressHandler = () => {
+    this.props.navigation.navigate('GrandExchange');
 }
 
-  return (
-    <ImageBackground source={require('../assets/osrs3.jpg')} resizeMode='cover' style={styles.container}>
-      <TouchableOpacity style={styles.button} onPress={pressHandler}>
-          <View style={styles.buttonContainer}>
-             <Text style={styles.buttonText}>Grand Exchange</Text>
-          </View>
-      </TouchableOpacity >
-    </ImageBackground >
-  );
+render () {
+    return (
+        <ImageBackground source={require('../assets/osrs3.jpg')} resizeMode='cover' style={styles.container}>
+        <TouchableOpacity style={styles.button} onPress={this.pressHandler}>
+            <View style={styles.buttonContainer}>
+                <Text style={styles.buttonText}>Grand Exchange</Text>
+            </View>
+        </TouchableOpacity >
+        </ImageBackground >
+    );
+    }
 }
 
 const styles = StyleSheet.create({

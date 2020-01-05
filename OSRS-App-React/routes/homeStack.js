@@ -4,13 +4,14 @@ import Home from '../screens/home';
 import GrandExchange from '../screens/grandExchange';
 
 
+
 const screens = {
     OSRSTracker: {
         screen: Home
     },
     GrandExchange: {
         screen: GrandExchange
-    }
+    },
 }
 
 

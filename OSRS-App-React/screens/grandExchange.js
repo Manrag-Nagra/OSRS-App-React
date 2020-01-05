@@ -1,38 +1,114 @@
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, ActivityIndicator, FlatList, Image } from 'react-native';
+import {  Snackbar } from 'react-native-paper';
 
 export default class GrandExchange extends React.Component {
+
+    static navigationOptions = {
+        title: 'Grand Exchange',
+        headerStyle: {
+            backgroundColor: '#302106',
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+            fontWeight: 'bold',
+        },
+    };  
+    
 
     constructor(props) {
         super(props);
         this.state = {
             itemName: "",
-            isLoading: true,
+            pageNum: 1,
+            isLoading: false,
             dataSource: null,
+            isMoreDataLoading: false,
+            hasMoreData: true,
+            visible: false,
+            message: ""
         }
     }
 
     onSearchHandle = () => {
-        this.setState({
-            isLoading: true
-        })
-        this.componentDidMount()
+        if(this.state.itemName != "") {
+            this.setState({
+                isLoading: true,
+                pageNum: 1
+            }, 
+            () => {
+                this.fetchData()
+            })
+        } else {
+            this.setState({
+                visible: true,
+                message: "Please enter an item"
+            })
+        }
+        
     }
 
-    componentDidMount () {
+    handleMoreData = () => {
+        if(!this.state.isMoreDataLoading) {
+            this.setState({
+                isMoreDataLoading: true,
+                pageNum: this.state.pageNum + 1
+            },
+            () => {
+                this.fetchMoreData()
+            })
+        }
+    }
 
-        return fetch('http://192.168.2.11:3002/items/' + this.state.itemName + '/1')
+    fetchData () {
+        return fetch('http://192.168.2.11:3002/items/' + this.state.itemName + '/' + this.state.pageNum)
             .then( (response) => response.json() )
             .then ( (responseJson) => {
+                if(responseJson.status != "failure") {
                 this.setState({
                     isLoading: false,
                     dataSource: responseJson.items
                 })
+                } else {
+                    this.setState({
+                        isLoading: false,
+                        visible: true,
+                        message: "Can't find item"
+                    })
+                }
             })
 
         .catch((error)=> {
             console.log(error);
         });
+
+
+    }
+
+    fetchMoreData () {
+        setTimeout(() =>  { 
+            return fetch('http://192.168.2.11:3002/items/' + this.state.itemName + '/' + this.state.pageNum)
+                .then( (response) => response.json() )
+                .then ( (responseJson) => {
+                    if(responseJson.status != "failure") {
+                        this.setState({
+                            isMoreDataLoading: false,
+                            dataSource: [...this.state.dataSource, ...responseJson.items]
+                        })
+                    } else {
+                        this.setState({
+                            isMoreDataLoading: false,
+                            visible: true,
+                            message: "No more item"
+                        })
+                    }
+                })
+
+            .catch((error)=> {
+                console.log(error);
+            });
+        }, 1500)
+        
 
 
     }
@@ -79,11 +155,22 @@ export default class GrandExchange extends React.Component {
                             </Text>
                         </View>
                         </View>
-                    )}
+                    )
+                }
+                onEndReached={this.handleMoreData}
+                onEndReachedThreshold={0.5}
+                ListFooterComponent={()=> <ActivityIndicator size="large" animating={this.state.isMoreDataLoading}/>}
                 />
             </View>
             <View style={styles.activityContainer}>
         <ActivityIndicator size="large" animating={this.state.isLoading} />
+        <Snackbar
+            visible={this.state.visible}
+            onDismiss={() => this.setState({ visible: false })}
+            duration={3000}
+            >
+            {this.state.message}
+        </Snackbar>
         </View>
         </View>
         
