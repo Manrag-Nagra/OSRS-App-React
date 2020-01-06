@@ -42,14 +42,14 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-  },
+    marginBottom: 300,
+    },
   buttonContainer: {
     backgroundColor: "#197886",
     width: 144,
     height: 55,
     alignItems: "center",
     justifyContent: "center",
-    marginBottom: 300
   },
   buttonText: {
     fontWeight: "bold",

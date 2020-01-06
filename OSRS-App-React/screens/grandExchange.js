@@ -37,6 +37,7 @@ export default class GrandExchange extends React.Component {
         //Check to see if they enter an item or not
         if(this.state.itemName != "") {
             this.setState({
+                dataSource: null,
                 isLoading: true,
                 pageNum: 1
             }, 
@@ -96,7 +97,7 @@ export default class GrandExchange extends React.Component {
     //Load more data when user scroll to the bottom of the list
     fetchMoreData () {
         setTimeout(() =>  { 
-            return fetch('http://192.168.2.11:3002/items/' + this.state.itemName + '/' + this.state.pageNum)
+            return fetch('http://192.168.2.11:3002/items/' + this.state.itemName.toLowerCase() + '/' + this.state.pageNum)
                 .then( (response) => response.json() )
                 .then ( (responseJson) => {
                     if(responseJson.status != "failure") {
@@ -143,7 +144,7 @@ export default class GrandExchange extends React.Component {
                 {/*Flat List Container*/}
                 <FlatList
                     style={styles.flatListContainer} 
-                    keyExtractor={(item) => item.id}
+                    keyExtractor={(item) => item.id.toString()}
                     data={this.state.dataSource}
                     renderItem={({item}) => (
                         <View style={styles.itemContainer}>
