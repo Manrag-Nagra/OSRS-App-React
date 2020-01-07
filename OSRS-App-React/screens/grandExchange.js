@@ -119,8 +119,12 @@ export default class GrandExchange extends React.Component {
             });
         }, 1500)
         
+    }
 
-
+    onItemTapped = (item) => {
+        this.props.navigation.navigate('GrandExchangeMoreInfo', {
+            itemID: item.id
+        });
     }
 
     render () {
@@ -147,30 +151,32 @@ export default class GrandExchange extends React.Component {
                     keyExtractor={(item) => item.id.toString()}
                     data={this.state.dataSource}
                     renderItem={({item}) => (
-                        <View style={styles.itemContainer}>
-                            {/*Icon Image*/}
-                            <Image
-                                style={{width: 50, height: 50,  marginTop: 30, marginLeft: 5, position: "absolute"}}
-                                source={{uri: item.icon_large}}
-                            />
-                            {/*Item name*/}
-                            <Text style={styles.item}>
-                                {item.name}{"\n"}
-                            </Text>
-                             {/*Item Description*/}
-                            <Text style={styles.itemDesc}>
-                                {item.description}
-                            </Text>
-                            {/*Item Current and Today Price*/}
-                            <View style={{flex:1, flexDirection: "row"}}>
-                                <Text style={styles.itemCurrent}>
-                                    Current: {item.current.currentPrice}
+                        <TouchableOpacity onPress={() => this.onItemTapped(item)}>
+                            <View style={styles.itemContainer}>
+                                {/*Icon Image*/}
+                                <Image
+                                    style={{width: 50, height: 50,  marginTop: 30, marginLeft: 5, position: "absolute"}}
+                                    source={{uri: item.icon_large}}
+                                />
+                                {/*Item name*/}
+                                <Text style={styles.item}>
+                                    {item.name}{"\n"}
                                 </Text>
-                                <Text style={styles.itemToday}>
-                                        Today: {item.today.todayPrice}
+                                {/*Item Description*/}
+                                <Text style={styles.itemDesc}>
+                                    {item.description}
                                 </Text>
+                                {/*Item Current and Today Price*/}
+                                <View style={{flex:1, flexDirection: "row"}}>
+                                    <Text style={styles.itemCurrent}>
+                                        Current: {item.current.currentPrice}
+                                    </Text>
+                                    <Text style={styles.itemToday}>
+                                            Today: {item.today.todayPrice}
+                                    </Text>
+                                </View>
                             </View>
-                        </View>
+                        </TouchableOpacity>
                     )
                     }
                     onEndReached={this.handleMoreData}
