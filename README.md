@@ -10,6 +10,7 @@ This project connects to my RuneScape API server and uses React Native to get th
 ## Technologies Used
 * [React Native Paper](https://callstack.github.io/react-native-paper/)
 * [React Navigation](https://reactnavigation.org/) 
+* [Expo](https://expo.io/)
 
 
 ## API used
