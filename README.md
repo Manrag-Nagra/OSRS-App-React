@@ -4,6 +4,7 @@ This project connects to my RuneScape API server and uses React Native to get th
 
 
 ## Demo
+![OSRS App React GE - Animated gif demo](DEMO/OSRS-React-GE-NEW.gif)
 
 
 ## Technologies Used
