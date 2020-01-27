@@ -70,7 +70,7 @@ export default class GrandExchange extends React.Component {
 
     //initial fetch to api
     fetchData () {
-        return fetch('http://192.168.2.11:3002/items/' + this.state.itemName.toLowerCase() + '/' + this.state.pageNum)
+        return fetch('<URL  HERE>' + this.state.itemName.toLowerCase() + '/' + this.state.pageNum)
             .then( (response) => response.json() )
             .then ( (responseJson) => {
                 if(responseJson.status != "failure") {
@@ -97,7 +97,7 @@ export default class GrandExchange extends React.Component {
     //Load more data when user scroll to the bottom of the list
     fetchMoreData () {
         setTimeout(() =>  { 
-            return fetch('http://192.168.2.11:3002/items/' + this.state.itemName.toLowerCase() + '/' + this.state.pageNum)
+            return fetch('<URL  HERE>' + this.state.itemName.toLowerCase() + '/' + this.state.pageNum)
                 .then( (response) => response.json() )
                 .then ( (responseJson) => {
                     if(responseJson.status != "failure") {

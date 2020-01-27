@@ -32,7 +32,7 @@ export default class GrandExchangeMoreInfo extends React.Component {
     }
 
     componentDidMount(){
-        return fetch('http://192.168.2.11:3002/itemsDetail/' + this.state.itemID)
+        return fetch('<URL  HERE>' + this.state.itemID)
             .then( (response) => response.json() )
             .then ( (responseJson) => {
                 if(responseJson.status != "failure") {
